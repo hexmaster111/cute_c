@@ -63,9 +63,9 @@ typedef struct registers_t
                     // So that we can index off of it
 
     __uint8_t data[255]; // the data section of the program, should likely be dynamic
-} *register_ptr_t;
+} *registers_ptr_t;
 
-void reigsters_init(register_ptr_t r)
+void reigsters_init(registers_ptr_t r)
 {
     r->pc = 0;
     r->u8_0 = 0;
@@ -80,11 +80,11 @@ typedef struct instruction_t **program_ptr_t; // a program is a list of instruct
 
 typedef struct runtime_t
 {
-    register_ptr_t reg;
+    registers_ptr_t reg;
     program_ptr_t prog;
 } *runtime_ptr;
 
-void runtime_init(runtime_ptr rt, register_ptr_t reg, program_ptr_t prog)
+void runtime_init(runtime_ptr rt, registers_ptr_t reg, program_ptr_t prog)
 {
     ASSERT(rt != NULL);
     ASSERT(reg != NULL);

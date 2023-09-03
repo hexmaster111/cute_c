@@ -36,7 +36,7 @@ typedef struct instruction_t
     enum oppcode opp;
     __uint8_t u8_0; // TODO: turn all the sprate aregs into one big block of data and then we can squich things down
     __uint8_t u8_1;
-    const __uint8_t data[255];
+     __uint8_t data[255];
 } *instruction_ptr;
 
 const char *opp_to_string(enum oppcode opp)
@@ -62,6 +62,7 @@ typedef struct registers_t
     size_t *arr[3]; // array containing pointers to each register in this struct
                     // So that we can index off of it
 
+    size_t data_len; //size of the string in the main str buffer
     __uint8_t data[255]; // the data section of the program, should likely be dynamic
 } *registers_ptr_t;
 
@@ -130,7 +131,7 @@ int runtime_run(runtime_ptr rt)
     }
     if (dataGET(inst->opp))
     {
-        //TODO: LEN
+        rt->reg->data_len = rt->reg->u8_0;
         memcpy(rt->reg->data, inst->data, inst->u8_0);
     }
 
